@@ -3,6 +3,7 @@ import AppButton from './app/components/AppButton';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import ViewImageScreen from './app/screens/ViewImageScreen';
 
+import Card from './app/components/Card';
 
 export default function App() {
   return <View style={{
@@ -14,6 +15,7 @@ export default function App() {
   <Card
   title="Red jacket for sale"
   subTitle="$100"
+  image ={require("./app/assets/jacket.jpg")}
    />
     
   </View>
