@@ -23,6 +23,9 @@ const initialMessages = [
 
 function MessagesScreen(props) {
     const[messages, setMessages] = useState(initialMessages);
+    const[refreshing, setRefreshing] = useState(false);
+
+
 const handleDelete = (message) => {
     //delete message from mesages
     setMessages(messages.filter((m) => m.id !== message.id));
@@ -42,9 +45,24 @@ const handleDelete = (message) => {
             onPress={() => console.log('Message selected', item)}
             renderRightActions={() =>
              <ListItemDeleteAction  onPress={()=> handleDelete(item)}/>}
+             
           />
+          
         )}
         ItemSeparatorComponent={ListItemSeparator}
+        refreshing={refreshing}
+        onRefresh={() => 
+        {
+         setMessages([
+             {
+    id: '2',
+    title: 'T2',
+    description: 'D2',
+    image: require('../assets/shema.jpg'),
+  },
+
+         ])   
+        }}
       />
     </Screen>
   );
