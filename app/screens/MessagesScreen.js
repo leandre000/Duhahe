@@ -56,7 +56,7 @@ function MessagesScreen(props) {
             },
           ])
         }
-        contentContainerStyle={styles.content} // ✅ makes sure content doesn't shrink
+        contentContainerStyle={styles.content}
       />
     </Screen>
   );
@@ -64,7 +64,7 @@ function MessagesScreen(props) {
 
 const styles = StyleSheet.create({
   content: {
-    flexGrow: 1, // ✅ Keeps items at top even if short
+    flexGrow: 1, 
   },
 });
 
