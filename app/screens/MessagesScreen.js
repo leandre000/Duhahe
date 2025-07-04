@@ -23,7 +23,7 @@ const messages = [
 function MessagesScreen(props) {
   return (
     <Screen style={styles.screen}>
-      <FlatList //hello
+      <FlatList //hel
         data={messages}
         keyExtractor={(message) => message.id.toString()}
         renderItem={({ item }) => (
