@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
 
-function AppTextInput({ icon, style, ...otherProps }) {
+function AppTextInput({ icon, style, onBlur, onChangeText, value, ...otherProps }) {
   return (
     <View style={styles.container}>
       {icon && (
@@ -19,6 +19,9 @@ function AppTextInput({ icon, style, ...otherProps }) {
       <TextInput
         style={[defaultStyles.text, styles.textInput, style]}
         placeholderTextColor={colors.medium}
+        onBlur={onBlur}                 // Pass onBlur
+        onChangeText={onChangeText}     // Pass onChangeText
+        value={value}                   // Pass value
         {...otherProps}
       />
     </View>
