@@ -5,9 +5,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
 
-function AppTextInput({ icon, style, onBlur, onChangeText, value, ...otherProps }) {
+function AppTextInput({ icon, width = '100%', style, ...otherProps }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -19,10 +19,7 @@ function AppTextInput({ icon, style, onBlur, onChangeText, value, ...otherProps 
       <TextInput
         style={[defaultStyles.text, styles.textInput, style]}
         placeholderTextColor={colors.medium}
-        onBlur={onBlur}                 // Pass onBlur
-        onChangeText={onChangeText}     // Pass onChangeText
-        value={value}                   // Pass value
-        {...otherProps}
+        {...otherProps} // handles onBlur, onChangeText, value, etc.
       />
     </View>
   );
@@ -34,7 +31,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
     paddingHorizontal: 15,
     paddingVertical: Platform.OS === 'android' ? 10 : 15,
     marginVertical: 10,

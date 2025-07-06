@@ -9,13 +9,13 @@ const initialMessages = [
   {
     id: '1',
     title: 'T1',
-    description: 'D1',
+    description: 'This is a longer description that should show properly.',
     image: require('../assets/shema.jpg'),
   },
   {
     id: '2',
     title: 'T2',
-    description: 'D2',
+    description: 'Another description visible below title.',
     image: require('../assets/shema.jpg'),
   },
 ];
@@ -51,7 +51,7 @@ function MessagesScreen(props) {
             {
               id: '2',
               title: 'T2',
-              description: 'D2',
+              description: 'Another refreshed description.',
               image: require('../assets/shema.jpg'),
             },
           ])
@@ -64,7 +64,9 @@ function MessagesScreen(props) {
 
 const styles = StyleSheet.create({
   content: {
-    flexGrow: 1, 
+    flexGrow: 1,
+    paddingTop: 40, 
+    paddingHorizontal: 15,
   },
 });
 

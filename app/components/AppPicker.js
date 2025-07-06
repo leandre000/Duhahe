@@ -1,80 +1,115 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform, TouchableWithoutFeedback, Modal, Button, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Modal,
+  FlatList,
+  Button,
+  Text,
+} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import AppText from './AppText';
-import defaultStyles from '../config/styles';
 import Screen from './Screen';
 import PickerItem from './PickerItem';
+import colors from '../config/colors';
 
-function AppPicker({ icon, items,onSelectItem,placeholder,selectedItem, showChevron = true }) {
-const [modalVisible, setModalVisible] = useState(false);
+function AppPicker({
+  icon,
+  items,
+  onSelectItem,
+  PickerItemComponent = PickerItem,
+  selectedItem,
+  width = '100%',
+  placeholder,
+  numberOfColumns,
+}) {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
-     <TouchableWithoutFeedback onPress={() =>setModalVisible(true)}>
-    <View style={styles.container}>
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          size={20}
-          color={defaultStyles.colors.medium}
-          style={styles.icon}
-        />
-      )}
-      <AppText style={styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText>
-      {showChevron && (
-        <MaterialCommunityIcons
-          name="chevron-down"
-          size={20}
-          color={defaultStyles.colors.medium}
-        />
-      )}
-    </View>
+      <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+        <View style={[styles.container, { width }]}>
+          {/* Left icon */}
+          {icon && (
+            <MaterialCommunityIcons
+              name={icon}
+              size={20}
+              color={colors.medium}
+              style={styles.icon}
+            />
+          )}
 
-    </TouchableWithoutFeedback>
-    <Modal visible={modalVisible} animationType='slide'>
-    <Screen>
- <Button title='Close' onPress={() => setModalVisible(false)}/>
- <FlatList 
-    data={items}
-    keyExtractor={item => item.value.toString()}
-    renderItem={({item}) => <PickerItem
-        label={item.label}
-        onPress={() => {
-        setModalVisible(false);
-        onSelectItem(item);
-    
-        }}
-    /> }
- />
-    </Screen>
-       
-    </Modal>
+          {/* Selected label or placeholder */}
+          <Text style={[styles.text, { color: selectedItem ? colors.dark : colors.medium }]}>
+            {selectedItem ? selectedItem.label : placeholder}
+          </Text>
 
+          {/* Right icon if selectedItem has one */}
+          {selectedItem?.icon && (
+            <MaterialCommunityIcons
+              name={selectedItem.icon}
+              size={20}
+              color={colors.medium}
+              style={styles.rightIcon}
+            />
+          )}
+
+          {/* Chevron down */}
+          <MaterialCommunityIcons
+            name="chevron-down"
+            size={20}
+            color={colors.medium}
+            style={styles.chevronIcon}
+          />
+        </View>
+      </TouchableWithoutFeedback>
+
+      <Modal visible={modalVisible} animationType="slide">
+        <Screen>
+          <Button title="Close" onPress={() => setModalVisible(false)} />
+          <FlatList
+            data={items}
+            keyExtractor={(item) => item.value.toString()}
+            numColumns={numberOfColumns}
+            renderItem={({ item }) => (
+              <PickerItemComponent
+                item={item}
+                label={item.label}
+                onPress={() => {
+                  setModalVisible(false);
+                  onSelectItem(item);
+                }}
+              />
+            )}
+          />
+        </Screen>
+      </Modal>
     </>
-   
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: colors.light,
     borderRadius: 25,
     flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal: 15,
-    paddingVertical: Platform.OS === 'android' ? 10 : 15,
+    padding: 15,
     marginVertical: 10,
+    alignItems: 'center',
   },
   icon: {
     marginRight: 10,
   },
   text: {
     flex: 1,
-    color: defaultStyles.colors.dark,
+    fontSize: 16,
+  },
+  rightIcon: {
+    marginLeft: 5,
+  },
+  chevronIcon: {
+    marginLeft: 10,
   },
 });
 
