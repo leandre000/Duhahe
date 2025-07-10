@@ -7,9 +7,9 @@ function ErrorMessage({ error, visible }) {
   if (!visible || !error) return null;
 
   return <AppText style={styles.error}>{error}</AppText>;
-  //work here
-}
 
+}
+//styles
 const styles = StyleSheet.create({
   error: {
     color: 'red',
